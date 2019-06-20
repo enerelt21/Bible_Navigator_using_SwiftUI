@@ -9,11 +9,22 @@
 import SwiftUI
 
 struct ChapterView : View {
+    var book: Books
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello World!"/*@END_MENU_TOKEN@*/)
+        NavigationView{
+            List{
+                ForEach(book.chapters.identified(by: \.chapNumber)){ diffChapter in
+                    NavigationButton(destination: VerseView(chapter: diffChapter)){
+                        Text("\(diffChapter.chapNumber)")
+                    }
+                }
+            }.navigationBarTitle(Text("Chapters"))
+        }
     }
 }
 
+/*
+ 
 #if DEBUG
 struct ChapterView_Previews : PreviewProvider {
     static var previews: some View {
@@ -21,3 +32,4 @@ struct ChapterView_Previews : PreviewProvider {
     }
 }
 #endif
+*/

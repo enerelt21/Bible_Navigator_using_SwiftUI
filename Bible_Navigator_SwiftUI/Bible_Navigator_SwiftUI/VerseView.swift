@@ -9,11 +9,25 @@
 import SwiftUI
 
 struct VerseView : View {
+    var chapter: Chapter
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello World!"/*@END_MENU_TOKEN@*/)
+        NavigationView{
+            List{
+                ForEach(chapter.verses.identified(by: \.verseNum)){ diffVerses in
+                    NavigationButton(destination: Text("You have reached ")){
+                        Text("\(diffVerses.verseNum)")
+                    }
+                
+                }.navigationBarTitle(Text("Verses"))
+            
+            }
+        //Text( )
+        }
     }
-}
 
+}
+/*
+ 
 #if DEBUG
 struct VerseView_Previews : PreviewProvider {
     static var previews: some View {
@@ -21,3 +35,4 @@ struct VerseView_Previews : PreviewProvider {
     }
 }
 #endif
+*/
