@@ -18,12 +18,11 @@ struct Chapter: Decodable{
 }
 struct Books: Decodable{
     var name: String
+    var bookID: Int
     var chapters: Array<Chapter>
 }
-
 class Bible: BindableObject{
     var didChange = PassthroughSubject<Bible, Never>()
-    
     var bibleBook = Array<Books>(){
         didSet{
             didChange.send(self)
@@ -55,13 +54,9 @@ class Bible: BindableObject{
                     }
                     tempChapter.append(Chapter(chapNumber: j+1, verses: tempVerse))
                 }
-                DispatchQueue.main.async{
-                self.bibleBook.append(Books(name: arrayResult.object(forKey: "name") as! String, chapters: tempChapter))
-                    //}
+                DispatchQueue.main.async{self.bibleBook.append(Books(name: arrayResult.object(forKey: "name") as! String, bookID: (i+1), chapters: tempChapter))
                 }
             }
-//            print("completed fetching JSON")
-            //print(self.bibleBook)
         }.resume()
         
     }
@@ -73,14 +68,13 @@ struct ContentView : View {
         NavigationView{
             List{
                 ForEach(bible.bibleBook.identified(by: \.name)){ diffBook in
-                    NavigationButton(destination: ChapterView(book: diffBook)){
-                      Text(diffBook.name)
+                    NavigationButton(destination: ChapterView(bookName: diffBook.name, bookID: diffBook.bookID, book: diffBook)){
+                        Text(diffBook.name)
                     }
                 }
             }.navigationBarTitle(Text("Books"))
         }
-            
-        }
+    }
 }
 #if DEBUG
 struct ContentView_Previews : PreviewProvider {
