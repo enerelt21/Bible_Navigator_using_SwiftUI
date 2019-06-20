@@ -14,21 +14,21 @@ struct VerseView : View {
     var chapterNumber: Int
     var chapter: Chapter
     var body: some View {
-        NavigationView{
-            
+        //NavigationView{
             List{
                 ForEach(chapter.verses.identified(by: \.verseNum)){ diffVerses in
                     Button(action:{ self.openURL(urlString: "olivetree://bible/\(self.bookID).\(self.chapterNumber).\(diffVerses.verseNum)")}){
                         HStack{
                             Text(self.bookName)
                             Text("\( self.chapterNumber)")
-                            Text(": \(diffVerses.verseNum)")
+                            Text(":")
+                            Text("\(diffVerses.verseNum)")
                         }
                     }
                 
                 }.navigationBarTitle(Text("Verses"))
             
-            }
+           // }
         }
     }
     func openURL(urlString : String){

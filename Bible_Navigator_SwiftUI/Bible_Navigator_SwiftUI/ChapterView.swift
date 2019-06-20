@@ -13,7 +13,7 @@ struct ChapterView : View {
     var bookID: Int
     var book: Books
     var body: some View {
-        NavigationView{
+       // NavigationView{
             List{
                 ForEach(book.chapters.identified(by: \.chapNumber)){ diffChapter in
                     NavigationButton(destination: VerseView( bookName: self.bookName, bookID: self.bookID, chapterNumber: diffChapter.chapNumber, chapter: diffChapter)){
@@ -24,7 +24,9 @@ struct ChapterView : View {
                     }
                 }
             }.navigationBarTitle(Text("Chapters"))
-        }
+     //   }
+        //.presentation(Modal?)
+       // .frame(width: scaledToFit(), height: scaledToFit(), alignment: nil)
     }
 }
 
